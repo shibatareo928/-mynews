@@ -1,13 +1,17 @@
 @extends('layouts.admin')
+<!--layoutsのadmin.blade.phpの使用-->
 @section('title', 'ニュースの新規作成')
+<!--layoutsのadmin.blade.phpの10行目部分を指す-->
 
 @section('content')
+<!--layoutsのadmin.blade.phpの67行目部分を指す-->
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>ニュース新規作成</h2>
                 <form action="{{ action('Admin\NewsController@create') }}" method="post" enctype="multipart/form-data">
-
+                    <!--38行目部分まで,ブラウザで更新ボタンを押したらpostの通信手段に切り替え-->
+                    <!--Admin\NewsController@create部分を実行-->
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -31,6 +35,7 @@
                         <label class="col-md-2">画像</label>
                         <div class="col-md-10">
                             <input type="file" class="form-control-file" name="image">
+                            <!--input　fileでファイルを挿入-->
                         </div>
                     </div>
                     {{ csrf_field() }}

@@ -11,13 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::group(['prefix' => 'admin'], function() {//17行目から29行目はグループ化されていてすべてadmin部分を指定している。
+    Route::get('news/create', 'Admin\NewsController@add');//getは通信の種類（ブラウザの最初にURLを打ち込むときはget）、getの（）内の左側はURL名右側はどこのコントローラーに飛ぶかを記している。
     Route::post('news/create', 'Admin\NewsController@create');
-    //
+    Route::get('news', 'Admin\NewsController@index')->middleware('auth'); // 追記
+    Route::get('news/edit', 'Admin\NewsController@edit')->middleware('auth'); // 追記
+    Route::post('news/edit', 'Admin\NewsController@update')->middleware('auth'); // 追記
+    Route::get('news/delete', 'Admin\NewsController@delete')->middleware('auth');
+    
     Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
     Route::get('profile/edit', 'Admin\ProfileController@add')->middleware('auth');
     Route::post('profile/create', 'Admin\ProfileController@create')->middleware('auth');
@@ -28,3 +32,4 @@ Route::group(['prefix' => 'admin'], function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'NewsController@index');
